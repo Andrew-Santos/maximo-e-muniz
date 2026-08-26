@@ -1,0 +1,270 @@
+/* ==========================================================================
+   Máximo & Muniz — Sociedade de Advogados — Painel de bio
+   ========================================================================== */
+:root{
+  --bg:         #131110;   /* carvão quase preto — fundo principal */
+  --surface:    #1C1815;   /* carvão levemente mais claro — cartões */
+  --surface-2:  #24201C;
+  --line:       rgba(230,214,187,0.12);
+  --text:       #EEE6D9;   /* marfim quente, para texto */
+  --text-mute:  #A79A87;   /* areia acinzentada suave */
+  --wine:       #7A2E33;   /* vinho — cor de marca */
+  --wine-deep:  #4C1B1F;
+  --gold:       #C9A25A;   /* dourado envelhecido — destaque */
+  --gold-soft:  #E4CFA0;
+
+  --serif: "Fraunces", Georgia, serif;
+  --sans:  "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  justify-content: center;
+}
+
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ margin: 0; padding: 0; list-style: none; }
+h1{ font-family: var(--serif); margin: 0; font-weight: 500; }
+
+.grain{
+  position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.card{
+  width: 100%;
+  max-width: 460px;
+  background: var(--surface);
+  border-radius: 28px;
+  overflow: hidden;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+}
+
+/* ---- capa com a foto das sócias ---- */
+.cover{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.cover img{
+  width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  filter: saturate(0.95) contrast(1.03);
+}
+.cover__fade{
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(19,17,16,0) 58%, var(--surface) 96%);
+}
+
+/* selo / monograma sobreposto à foto */
+.crest{
+  width: 64px; height: 64px;
+  margin-top: -32px; /* sobrepõe a foto em metade */
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 32% 28%, var(--wine) 0%, var(--wine-deep) 72%);
+  border: 1.5px solid var(--gold);
+  color: var(--gold-soft);
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 20px -6px rgba(0,0,0,0.55);
+  z-index: 1;
+}
+
+.name{
+  margin-top: 18px;
+  font-size: 1.7rem;
+  letter-spacing: -0.01em;
+  padding: 0 28px;
+}
+.role{
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.tagline{
+  margin: 14px 0 0;
+  padding: 0 34px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--text-mute);
+  line-height: 1.5;
+}
+
+/* linha "respirando" */
+.breath{
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; max-width: 220px;
+  margin: 26px 0 28px;
+  padding: 0 28px;
+}
+.breath span{
+  flex: 1; height: 1px; background: var(--line);
+  animation: breathe-line 4.6s ease-in-out infinite;
+}
+.breath i{
+  width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+  flex-shrink: 0; font-style: normal;
+  animation: breathe-dot 4.6s ease-in-out infinite;
+}
+@keyframes breathe-line{
+  0%, 100%{ transform: scaleX(0.55); opacity: 0.55; }
+  50%{ transform: scaleX(1); opacity: 1; }
+}
+@keyframes breathe-dot{
+  0%, 100%{ transform: scale(0.85); box-shadow: 0 0 0 0 rgba(201,162,90,0.35); }
+  50%{ transform: scale(1.15); box-shadow: 0 0 0 6px rgba(201,162,90,0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .breath span, .breath i{ animation: none; }
+}
+
+.btn{
+  display: inline-flex; align-items: center; justify-content: center;
+  width: calc(100% - 56px);
+  margin: 0 28px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #241A0E;
+  font-size: 0.98rem; font-weight: 600;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.btn:hover{ transform: translateY(-2px); background: var(--gold-soft); }
+
+.links{
+  width: 100%;
+  margin-top: 34px;
+  padding: 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion{
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+.accordion:has(.item[aria-expanded="true"]){ border-color: var(--gold); }
+
+.item{
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.item__art{
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-right: -2px;
+}
+.item__label{ flex: 1; }
+
+.item--link{
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  transition: border-color 0.25s ease;
+}
+.item--link:hover{ border-color: var(--gold); }
+
+.item__plus{
+  position: relative;
+  width: 12px; height: 12px; flex-shrink: 0;
+}
+.item__plus::before, .item__plus::after{
+  content: ""; position: absolute; background: var(--text-mute);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.item__plus::before{ top: 50%; left: 0; width: 100%; height: 1.5px; transform: translateY(-50%); }
+.item__plus::after{ left: 50%; top: 0; height: 100%; width: 1.5px; transform: translateX(-50%); }
+.item[aria-expanded="true"] .item__plus::after{ transform: translateX(-50%) rotate(90deg); opacity: 0; }
+.item[aria-expanded="true"] .item__plus::before{ background: var(--gold); }
+
+.item__arrow{ color: var(--text-mute); font-size: 0.95rem; flex-shrink: 0; }
+.item--link:hover .item__arrow{ color: var(--gold); }
+
+.panel-wrap{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+.panel-wrap.is-open{ grid-template-rows: 1fr; }
+
+.panel{
+  overflow: hidden;
+  min-height: 0;
+  text-align: left;
+  color: var(--text-mute);
+  font-size: 0.9rem;
+}
+.panel p, .panel .tags{
+  margin: 0 20px 16px;
+}
+.panel p:first-child{ margin-top: 2px; }
+.panel p:last-child, .panel .tags{ margin-bottom: 18px; }
+
+.tags{
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.tags li{
+  font-size: 0.82rem;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--gold-soft);
+}
+
+.footer{
+  margin-top: 40px;
+  padding: 0 28px;
+  color: var(--text-mute);
+  font-size: 0.8rem;
+}
+.footer p{ margin: 0 0 6px; }
+.footer__rights{ opacity: 0.7; }
+.footer__credit{ opacity: 0.7; margin-bottom: 0; }
+.footer__credit a{ text-decoration: underline; text-underline-offset: 2px; transition: color 0.2s ease; }
+.footer__credit a:hover{ color: var(--gold); }
+
+@media (max-width: 380px){
+  .name{ padding: 0 20px; }
+  .tagline{ padding: 0 24px; }
+  .breath, .links, .footer{ padding-left: 20px; padding-right: 20px; }
+  .btn{ width: calc(100% - 40px); margin: 0 20px; }
+}
